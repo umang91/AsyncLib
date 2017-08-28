@@ -20,7 +20,11 @@ private val errorTrace = { throwable : Throwable -> throwable.printStackTrace() 
 
 class AsyncContext<T>(val weakRef: WeakReference<T>)
 
-fun <T> AsyncContext<T>.uiThread(function: (T) -> Unit): Boolean {
+/**
+ * Execute [function] on the UI/main thread
+ * @param function code to be executed on main/UI thread
+ */
+fun <T> AsyncContext<T>.runOnUIThread(function: (T) -> Unit): Boolean {
   val ref = weakRef.get() ?: return false
   if (MainThreadHelper.mainThread == java.lang.Thread.currentThread()) {
     function(ref)
@@ -33,9 +37,9 @@ fun <T> AsyncContext<T>.uiThread(function: (T) -> Unit): Boolean {
 /**
  * Execute [function] on the application UI thread if the underlying [Activity] still exists and is not finished.
  *  If it is not exist anymore or if it was finished, [function] will not be called.
- *  @param function the code to be executed on the UI thread
+ *  @param function  code to be executed on the main/UI thread
  */
-fun <T: Activity> AsyncContext<T>.executeOnActivityUIThread(function: (T) -> Unit): Boolean {
+fun <T: Activity> AsyncContext<T>.runOnActivityUIThread(function: (T) -> Unit): Boolean {
   val activity = weakRef.get() ?: return false
   if (activity.isFinishing) return false
   activity.runOnUiThread { function(activity) }
@@ -46,9 +50,9 @@ fun <T: Activity> AsyncContext<T>.executeOnActivityUIThread(function: (T) -> Uni
  * Execute [function] on the application UI thread if the underlying [Fragment] still exists and is not
  * detached.
  *  If it is not exist anymore or if it was finished, [function] will not be called.
- *  @param function the code to be executed on the UI thread
+ *  @param function code to be executed on the main/UI thread
  */
-fun <T: Fragment> AsyncContext<T>.executeOnFragmentUIThread(function: (T) -> Unit): Boolean {
+fun <T: Fragment> AsyncContext<T>.runOnFragmentUIThread(function: (T) -> Unit): Boolean {
   val fragment = weakRef.get() ?: return false
   if (fragment.isDetached) return false
   val activity = fragment.activity ?: return false
@@ -61,9 +65,9 @@ fun <T: Fragment> AsyncContext<T>.executeOnFragmentUIThread(function: (T) -> Uni
  *
  * @param exceptionHandler optional exception handler.
  *  If defined, any exceptions thrown inside [task] will be passed to it. If not, exceptions will be ignored.
- * @param task the code to execute asynchronously.
+ * @param task  code to execute asynchronously.
  */
-fun <T> T.executeAsync(
+fun <T> T.runAsync(
     exceptionHandler: ((Throwable) -> Unit)? = errorTrace,
     task: AsyncContext<T>.() -> Unit
 ): Future<Unit> {
@@ -85,12 +89,11 @@ fun <T> T.executeAsync(
 
 internal object AsyncExecutor {
   var executor: ExecutorService =
-      Executors.newScheduledThreadPool(2 * Runtime.getRuntime().availableProcessors())
+      Executors.newCachedThreadPool()
 
   fun <T> submit(task: () -> T): Future<T> {
     return executor.submit(task)
   }
-
 }
 
 private object MainThreadHelper {
