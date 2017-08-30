@@ -24,7 +24,7 @@ class AsyncContext<T>(val weakRef: WeakReference<T>)
  * Execute [function] on the UI/main thread
  * @param function code to be executed on main/UI thread
  */
-fun <T> AsyncContext<T>.runOnUIThread(function: (T) -> Unit): Boolean {
+fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
   val ref = weakRef.get() ?: return false
   if (MainThreadHelper.mainThread == java.lang.Thread.currentThread()) {
     function(ref)
@@ -39,7 +39,7 @@ fun <T> AsyncContext<T>.runOnUIThread(function: (T) -> Unit): Boolean {
  *  If it is not exist anymore or if it was finished, [function] will not be called.
  *  @param function  code to be executed on the main/UI thread
  */
-fun <T: Activity> AsyncContext<T>.runOnActivityUIThread(function: (T) -> Unit): Boolean {
+fun <T: Activity> AsyncContext<T>.runOnActivityThread(function: (T) -> Unit): Boolean {
   val activity = weakRef.get() ?: return false
   if (activity.isFinishing) return false
   activity.runOnUiThread { function(activity) }
@@ -52,7 +52,7 @@ fun <T: Activity> AsyncContext<T>.runOnActivityUIThread(function: (T) -> Unit): 
  *  If it is not exist anymore or if it was finished, [function] will not be called.
  *  @param function code to be executed on the main/UI thread
  */
-fun <T: Fragment> AsyncContext<T>.runOnFragmentUIThread(function: (T) -> Unit): Boolean {
+fun <T: Fragment> AsyncContext<T>.runOnFragmentThread(function: (T) -> Unit): Boolean {
   val fragment = weakRef.get() ?: return false
   if (fragment.isDetached) return false
   val activity = fragment.activity ?: return false
