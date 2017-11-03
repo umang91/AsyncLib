@@ -6,3 +6,5 @@
 /captures
 .externalNativeBuild
 /.idea
+private_key_sender.asc
+public_key_sender.asc
