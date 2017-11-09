@@ -10,6 +10,14 @@ Dis-advantage of using AsyncTask in your SDK/library is maximum number of concur
  contributing to this limit which could ultimately result in some important tasks of app being 
  dropped off.
  
+ # Installation
+ 
+ Add the below dependency in the app level build gradle.
+ 
+ ```
+ implementation 'com.umang:asynclib:1.0.0'
+ ```
+ 
 # Usage
 
 Running on background thread and updating on ui thread without checks on the activity/fragment 
