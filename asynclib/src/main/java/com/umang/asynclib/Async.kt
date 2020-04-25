@@ -36,6 +36,7 @@ fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
 
 /**
  * Execute [function] on the application UI thread if the underlying [Activity] still exists and is not finished.
+ *
  *  If it is not exist anymore or if it was finished, [function] will not be called.
  *  @param function  code to be executed on the main/UI thread
  */
@@ -49,7 +50,9 @@ fun <T: Activity> AsyncContext<T>.runOnActivityThread(function: (T) -> Unit): Bo
 /**
  * Execute [function] on the application UI thread if the underlying [Fragment] still exists and is not
  * detached.
- *  If it is not exist anymore or if it was finished, [function] will not be called.
+ *
+ *  If the underlying fragment does not exist anymore or if it is detached, [function] will not be
+ *  called.
  *  @param function code to be executed on the main/UI thread
  */
 fun <T: Fragment> AsyncContext<T>.runOnFragmentThread(function: (T) -> Unit): Boolean {

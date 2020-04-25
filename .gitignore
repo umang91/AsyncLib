@@ -8,3 +8,5 @@
 /.idea
 private_key_sender.asc
 public_key_sender.asc
+buildSrc/build/
+buildSrc/buildSrc.iml

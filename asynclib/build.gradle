@@ -1,14 +1,37 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+ext {
+
+  bintrayRepo = BintrayConfig.repoName
+  publishedGroupId = BintrayConfig.publisherId
+
+  bintrayName = BintrayConfig.artifactName
+  libraryName = BintrayConfig.artifactId
+  artifact = BintrayConfig.artifactId
+  libraryDescription = BintrayConfig.description
+  libraryVersion = BintrayConfig.versionName
+
+  siteUrl = BintrayConfig.siteUrl
+  gitUrl = BintrayConfig.gitUrl
+
+  developerId = BintrayConfig.developerId
+  developerName = BintrayConfig.developerName
+  developerEmail = BintrayConfig.developerEmail
+
+  licenseName = BintrayConfig.licenseName
+  licenseUrl = BintrayConfig.licenseUrl
+  allLicenses = BintrayConfig.allLicenses
+}
+
 android {
   compileSdkVersion 28
 
   defaultConfig {
     minSdkVersion 16
     targetSdkVersion 28
-    versionCode 1
-    versionName "1.0"
+    versionCode BintrayConfig.versionCode
+    versionName BintrayConfig.versionName
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -30,3 +53,5 @@ dependencies {
 repositories {
   mavenCentral()
 }
+apply from: 'https://raw.githubusercontent.com/umang91/jcenterScripts/master/installv.gradle'
+apply from: 'https://raw.githubusercontent.com/umang91/jcenterScripts/master/bintray-kotlin.gradle'
