@@ -1,9 +1,9 @@
 package com.umang.asynclib
 
 import android.app.Activity
-import android.app.Fragment
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
 import java.lang.ref.WeakReference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
