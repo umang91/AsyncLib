@@ -56,3 +56,9 @@ repositories {
 }
 apply from: 'https://raw.githubusercontent.com/umang91/jcenterScripts/master/installv.gradle'
 apply from: 'https://raw.githubusercontent.com/umang91/jcenterScripts/master/bintray-kotlin.gradle'
+
+dokka {
+  moduleName = ''
+  outputFormat = 'html'
+  outputDirectory = "../docs"
+}
