@@ -3,7 +3,7 @@ package com.umang.asynclib
 import android.app.Activity
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import java.lang.ref.WeakReference
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -26,7 +26,7 @@ class AsyncContext<T>(val weakRef: WeakReference<T>)
  */
 fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
     val ref = weakRef.get() ?: return false
-    if (MainThreadHelper.mainThread == java.lang.Thread.currentThread()) {
+    if (MainThreadHelper.mainThread == Thread.currentThread()) {
         function(ref)
     } else {
         MainThreadHelper.handler.post { function(ref) }
