@@ -20,6 +20,6 @@ object BintrayConfig {
   const val artifactId = "asynclib"
   const val artifactName = "aysnclibrary"
   const val description = "Light weight Kotlin library for performing tasks on background threads a.k.a WorkerThreads."
-  const val versionName = "1.1.0"
-  const val versionCode = 2
+  const val versionName = "1.2.0"
+  const val versionCode = 3
 }
