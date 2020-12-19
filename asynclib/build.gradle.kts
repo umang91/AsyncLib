@@ -1,7 +1,7 @@
 plugins{
   id("com.android.library")
   id("kotlin-android")
-  id("org.jetbrains.dokka-android")
+  id("org.jetbrains.dokka")
 }
 
 ext {
@@ -51,3 +51,7 @@ dependencies {
 }
 apply(from = "https://raw.githubusercontent.com/umang91/jcenterScripts/master/installv.gradle")
 apply(from = "https://raw.githubusercontent.com/umang91/jcenterScripts/master/bintray-kotlin.gradle")
+
+tasks.dokkaHtml.configure {
+  outputDirectory.set(rootDir.resolve("docs"))
+}
