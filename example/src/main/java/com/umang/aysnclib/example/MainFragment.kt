@@ -3,6 +3,9 @@ package com.umang.aysnclib.example
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.umang.asynclib.runAsync
 import com.umang.asynclib.runOnFragmentThread
 
@@ -15,11 +18,19 @@ class MainFragment : androidx.fragment.app.Fragment() {
         super.onCreate(savedInstanceState)
         runAsync {
             //code to be run asynchronously
-            Log.v("MainActivity", "worker")
+            Log.v("MainFragment", "worker")
             runOnFragmentThread {
                 //code to run on main thread
-                Log.v("MainActivity", "UI")
+                Log.v("MainFragment", "UI")
             }
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 }

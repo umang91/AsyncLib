@@ -6,11 +6,12 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.0.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
-        classpath("com.github.dcendents:android-maven-gradle-plugin:2.1")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.10.2")
+        classpath("com.android.tools.build:gradle:4.1.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${ProjectConfig.kotlinVersion}")
+        // publishing plugin
+        classpath("com.vanniktech:gradle-maven-publish-plugin:0.14.2")
+        // documentation plugin
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.20")
     }
 }
 
