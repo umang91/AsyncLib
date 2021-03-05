@@ -17,7 +17,7 @@ Dis-advantage of using AsyncTask in your SDK/library is maximum number of concur
  Add the below dependency in the app level build gradle.
  
  ```groovy
- implementation("com.umang:asynclib:$sdkVersion")
+ implementation("dev.assemblage:asynclib:$sdkVersion")
  ```
  replace `$sdkVersion` with the latest SDK version.
  
