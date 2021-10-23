@@ -1,8 +1,3 @@
-include(":example", ":asynclib")
+enableFeaturePreview("VERSION_CATALOGS")
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        jcenter()
-    }
-}
+include(":example", ":asynclib")

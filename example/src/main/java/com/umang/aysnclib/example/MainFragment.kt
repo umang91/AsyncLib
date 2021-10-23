@@ -1,11 +1,11 @@
 package com.umang.aysnclib.example
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.umang.asynclib.runAsync
 import com.umang.asynclib.runOnFragmentThread
 
@@ -13,7 +13,7 @@ import com.umang.asynclib.runOnFragmentThread
  * @author Umang Chamaria
  * Date: 25/04/20
  */
-class MainFragment : androidx.fragment.app.Fragment() {
+class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         runAsync {

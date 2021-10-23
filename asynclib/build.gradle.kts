@@ -4,18 +4,11 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-ext {
-    set(PomKeys.artifactId, ReleaseConfig.artifactId)
-    set(PomKeys.description, ReleaseConfig.description)
-    set(PomKeys.name, ReleaseConfig.artifactName)
-    set(PomKeys.versionName, ReleaseConfig.versionName)
-}
-
 android {
-    compileSdkVersion(29)
+    compileSdk = 29
     defaultConfig {
-        minSdkVersion(16)
-        targetSdkVersion(29)
+        minSdk = 16
+        targetSdk = 29
     }
     buildTypes {
         getByName("release") {
@@ -35,8 +28,8 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${ProjectConfig.kotlinVersion}")
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation(libs.kotlinStdLib)
+    compileOnly("androidx.appcompat:appcompat:1.3.1")
 }
 
 tasks.dokkaHtml.configure {
