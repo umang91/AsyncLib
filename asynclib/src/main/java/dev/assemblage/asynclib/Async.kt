@@ -18,13 +18,13 @@ import java.util.concurrent.Future
  */
 private val errorTrace = { throwable: Throwable -> throwable.printStackTrace() }
 
-class AsyncContext<T>(val weakRef: WeakReference<T>)
+public class AsyncContext<T>(public val weakRef: WeakReference<T>)
 
 /**
  * Execute [function] on the UI/main thread
  * @param function code to be executed on main/UI thread
  */
-fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
+public fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
     val ref = weakRef.get() ?: return false
     if (MainThreadHelper.mainThread == Thread.currentThread()) {
         function(ref)
@@ -40,7 +40,7 @@ fun <T> AsyncContext<T>.onUIThread(function: (T) -> Unit): Boolean {
  *  If it is not exist anymore or if it was finished, [function] will not be called.
  *  @param function  code to be executed on the main/UI thread
  */
-fun <T : Activity> AsyncContext<T>.runOnActivityThread(function: (T) -> Unit): Boolean {
+public fun <T : Activity> AsyncContext<T>.runOnActivityThread(function: (T) -> Unit): Boolean {
     val activity = weakRef.get() ?: return false
     if (activity.isFinishing) return false
     activity.runOnUiThread { function(activity) }
@@ -55,7 +55,7 @@ fun <T : Activity> AsyncContext<T>.runOnActivityThread(function: (T) -> Unit): B
  *  called.
  *  @param function code to be executed on the main/UI thread
  */
-fun <T : Fragment> AsyncContext<T>.runOnFragmentThread(function: (T) -> Unit): Boolean {
+public fun <T : Fragment> AsyncContext<T>.runOnFragmentThread(function: (T) -> Unit): Boolean {
     val fragment = weakRef.get() ?: return false
     if (fragment.isDetached) return false
     val activity = fragment.activity ?: return false
@@ -70,7 +70,7 @@ fun <T : Fragment> AsyncContext<T>.runOnFragmentThread(function: (T) -> Unit): B
  *  If defined, any exceptions thrown inside [task] will be passed to it. If not, exceptions will be ignored.
  * @param task  code to execute asynchronously.
  */
-fun <T> T.runAsync(
+public fun <T> T.runAsync(
     exceptionHandler: ((Throwable) -> Unit)? = errorTrace,
     task: AsyncContext<T>.() -> Unit
 ): Future<Unit> {
@@ -79,12 +79,7 @@ fun <T> T.runAsync(
         return@submit try {
             context.task()
         } catch (thr: Throwable) {
-            val result = exceptionHandler?.invoke(thr)
-            if (result != null) {
-                result
-            } else {
-                Unit
-            }
+            exceptionHandler?.invoke(thr) ?: Unit
         }
     }
 }
