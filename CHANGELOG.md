@@ -1,3 +1,9 @@
+## 2.1.0
+- Target SDK Version and Compile SDK version updated to 31
+- Updated AGP version to `7.2.2`
+- Release script update to support single variant.
+- Package name updated to `dev.assemblage.asynclib`
+
 ## 2.0.0
 - Target SDK Version and Compile SDK version updated to 29
 - Moving publishing to Maven Central

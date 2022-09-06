@@ -3,8 +3,8 @@ package com.umang.aysnclib.example
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.umang.asynclib.runAsync
-import com.umang.asynclib.runOnActivityThread
+import dev.assemblage.asynclib.runAsync
+import dev.assemblage.asynclib.runOnActivityThread
 
 class MainActivity : AppCompatActivity() {
 

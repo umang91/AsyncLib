@@ -1,14 +1,15 @@
 plugins {
     id("com.android.library")
-    id("kotlin-android")
+    id("org.jetbrains.kotlin.android")
     id("org.jetbrains.dokka")
 }
 
 android {
-    compileSdk = 29
+    namespace = "dev.assemblage.asynclib"
+    compileSdk = 31
     defaultConfig {
-        minSdk = 16
-        targetSdk = 29
+        minSdk = 21
+        targetSdk = 31
     }
     buildTypes {
         getByName("release") {
@@ -25,6 +26,7 @@ android {
     }
 }
 
+apply(from = "../release.gradle")
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
@@ -35,5 +37,3 @@ dependencies {
 tasks.dokkaHtml.configure {
     outputDirectory.set(rootDir.resolve("docs"))
 }
-
-apply(plugin = "com.vanniktech.maven.publish")

@@ -1,0 +1,70 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'com.android.library'
+
+android {
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+}
+
+def mavenSnapshotUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+def mavenCentralUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+
+def versionName = project.findProperty('VERSION_NAME') as String
+
+def repositoryUsername = project.findProperty("mavenCentralUsername") as String
+def repositoryPassword = project.findProperty("mavenCentralPassword") as String
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = GROUP
+            artifactId = ARTIFACT_NAME
+            version = versionName
+
+            afterEvaluate {
+                from components.release
+            }
+            pom {
+                name = NAME
+                description = DESCRIPTION
+                url = PROJECT_URL
+
+                licenses {
+                    license {
+                        name = LICENCE_NAME
+                        url = LICENCE_URL
+                    }
+                }
+                developers {
+                    developer {
+                        id = DEVELOPER_ID
+                        name = DEVELOPER_NAME
+                    }
+                }
+
+                scm {
+                    url = PROJECT_URL
+                    connection = SCM_CONNECTION
+                    developerConnection = SCM_DEV_CONNECTION
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url = versionName.endsWith('-SNAPSHOT') ? mavenSnapshotUrl : mavenCentralUrl
+            credentials {
+                username = repositoryUsername
+                password = repositoryPassword
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications
+}

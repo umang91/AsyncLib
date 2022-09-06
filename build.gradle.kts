@@ -1,26 +1,10 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        val libs = project.extensions.getByType<VersionCatalogsExtension>()
-            .named("libs") as org.gradle.accessors.dm.LibrariesForLibs
-        classpath("com.android.tools.build:gradle:7.0.3")
-        classpath(libs.gradlePluginKotlin)
-        // publishing plugin
-        classpath("com.vanniktech:gradle-maven-publish-plugin:0.18.0")
-        // documentation plugin
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.5.30")
-    }
+plugins {
+    id("com.android.application") version "7.2.2" apply false
+    id("com.android.library") version "7.2.2" apply false
+    id("org.jetbrains.kotlin.android") version "1.6.10" apply false
+    id("org.jetbrains.dokka") version "1.5.30" apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
 
 tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)

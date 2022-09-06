@@ -1,7 +1,7 @@
 ![MavenBadge](https://maven-badges.herokuapp.com/maven-central/dev.assemblage/asynclib/badge.svg)
 
 ## AsyncLibKotlin
-Light weight Kotlin library for performing tasks on background threads a.k.a WorkerThreads.
+Lightweight Kotlin library for performing tasks on background threads a.k.a. WorkerThreads.
 
 This library has an advantage over the [AsyncTask](https://developer.android.com/reference/android/os/AsyncTask.html) in android as one need not code extra for checking if 
 the Activity is still in foreground or the Fragment is still attached when the async execution 
